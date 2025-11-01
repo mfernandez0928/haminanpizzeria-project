@@ -307,7 +307,7 @@ export default function Menu() {
                     <img
                       src={item.image}
                       alt={item.name}
-                      className="w-full h-full object-cover group-hover:scale-110 transition-transform"
+                      className="w-full h-full object-cover"
                       onError={(e) => {
                         e.target.style.display = "none";
                       }}

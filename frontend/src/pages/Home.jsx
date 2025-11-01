@@ -127,9 +127,11 @@ export default function Home() {
             {/* Right Emoji */}
             <div className="relative hidden lg:block animate-fadeInRight">
               <div className="absolute w-60 h-60 rounded-full bg-gradient-radial from-[rgba(196,0,127,0.2)] to-transparent animate-pulse"></div>
-              <div className="relative z-10 text-9xl flex items-center justify-center">
-                🍕
-              </div>
+              <img
+                src="https://i.postimg.cc/3N6Fff2p/523096897-122125793054853965-6184228437903459841-n.jpg"
+                alt="Pizza"
+                className="w-96 h-96 object-cover relative z-10 shadow-2xl"
+              />
             </div>
           </div>
         </div>
