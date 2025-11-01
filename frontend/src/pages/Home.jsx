@@ -1,13 +1,21 @@
-// src/pages/Home.jsx - FIXED VERSION
 import { Link } from "react-router-dom";
 import { useState } from "react";
-import { useLanguageStore } from "../store/store";
+import { useCartStore } from "../store/store";
 
 export default function Home() {
-  const { language } = useLanguageStore();
+  const cartItems = useCartStore((state) => state.items);
+  const [showPhone, setShowPhone] = useState(false);
+
+  const handleCallClick = () => {
+    // Copy phone to clipboard
+    const phone = "+358 5 3535110";
+    navigator.clipboard.writeText(phone);
+    setShowPhone(true);
+    setTimeout(() => setShowPhone(false), 2000);
+  };
 
   return (
-    <div className="bg-[#1D1C1C] text-white min-h-screen">
+    <div className="bg-[#1D1C1C] text-white overflow-hidden">
       {/* Floating Decorative Elements */}
       <div className="fixed inset-0 pointer-events-none z-10">
         <div className="absolute w-20 h-20 bg-[rgba(196,0,127,0.3)] rounded-full top-[15%] left-[5%] animate-pulse opacity-60"></div>
@@ -26,19 +34,39 @@ export default function Home() {
       </div>
 
       {/* Floating Action Buttons */}
-      <div className="fixed right-8 top-1/2 transform -translate-y-1/2 flex flex-col gap-4 z-50">
-        <button className="w-14 h-14 rounded-full bg-[#41C485] text-white flex items-center justify-center shadow-lg hover:scale-110 transition-transform hover:shadow-2xl">
+      <div className="fixed right-8 top-1/2 transform -translate-y-1/2 flex flex-col gap-4 z-50 pointer-events-auto">
+        {/* Call Button - FIXED */}
+        <button
+          onClick={handleCallClick}
+          className="w-14 h-14 rounded-full bg-[#41C485] text-white flex items-center justify-center shadow-lg hover:scale-110 transition-transform hover:shadow-2xl relative group"
+          title="Call us"
+        >
           📞
+          {showPhone && (
+            <div className="absolute right-full mr-3 bg-[#C4007F] text-white px-3 py-2 rounded text-xs font-bold whitespace-nowrap">
+              Copied! ✓
+            </div>
+          )}
+          <div className="absolute right-full mr-3 bg-gray-800 text-white px-3 py-2 rounded text-xs font-bold whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity">
+            +358 5 3535110
+          </div>
         </button>
-        <button className="w-14 h-14 rounded-full bg-[#41C485] text-white flex items-center justify-center shadow-lg hover:scale-110 transition-transform hover:shadow-2xl relative">
+
+        {/* Cart Button */}
+        <Link
+          to="/menu"
+          className="relative w-14 h-14 rounded-full bg-[#41C485] text-white flex items-center justify-center shadow-lg hover:scale-110 transition-transform hover:shadow-2xl"
+        >
           🛒
-          <span className="absolute -top-2 -right-2 bg-[#C4007F] text-white text-xs font-bold rounded-full w-6 h-6 flex items-center justify-center">
-            3
-          </span>
-        </button>
+          {cartItems.length > 0 && (
+            <span className="absolute -top-2 -right-2 bg-[#C4007F] text-white text-xs font-bold rounded-full w-6 h-6 flex items-center justify-center">
+              {cartItems.length}
+            </span>
+          )}
+        </Link>
       </div>
 
-      {/* Hero Section - NO WHITE BAR */}
+      {/* Hero Section */}
       <section className="pt-32 pb-20 px-8 min-h-screen flex items-center relative z-20">
         <div className="container mx-auto max-w-6xl">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
@@ -107,7 +135,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Features Section */}
+      {/* Why Choose Section */}
       <section className="py-20 px-8 bg-[rgba(255,255,255,0.02)]">
         <div className="container mx-auto max-w-6xl">
           <h2 className="text-5xl font-bold text-center mb-4">
@@ -171,8 +199,8 @@ export default function Home() {
         </Link>
       </section>
 
-      {/* Footer */}
-      <footer className="bg-[rgba(0,0,0,0.3)] py-16 px-8 mt-12 relative z-20">
+      {/* ONE Footer Only */}
+      <footer className="bg-[#1D1C1C] py-16 px-8 border-t-2 border-[#C4007F] relative z-20">
         <div className="container mx-auto max-w-6xl">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
             <div>
@@ -227,19 +255,25 @@ export default function Home() {
               </h3>
               <div className="flex gap-3">
                 <a
-                  href="#"
+                  href="https://facebook.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="w-10 h-10 rounded-full bg-white bg-opacity-10 flex items-center justify-center hover:bg-[#41C485] transition text-lg"
                 >
                   f
                 </a>
                 <a
-                  href="#"
+                  href="https://instagram.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="w-10 h-10 rounded-full bg-white bg-opacity-10 flex items-center justify-center hover:bg-[#41C485] transition text-lg"
                 >
                   📷
                 </a>
                 <a
-                  href="#"
+                  href="https://twitter.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="w-10 h-10 rounded-full bg-white bg-opacity-10 flex items-center justify-center hover:bg-[#41C485] transition text-lg"
                 >
                   𝕏

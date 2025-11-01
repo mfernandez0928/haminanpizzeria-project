@@ -29,7 +29,6 @@ function App() {
           <Route path="/register" element={<Register />} />
         </Routes>
       </main>
-      <Footer />
       <ToastContainer position="top-right" autoClose={3000} />
     </Router>
   );
