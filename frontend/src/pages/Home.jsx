@@ -1,253 +1,426 @@
-// src/pages/Home.jsx - UPDATED with Original Design Style
+// src/pages/Home.jsx - FULL DESIGN FROM ORIGINAL
 import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
 
 export default function Home() {
+  const [pizzas] = useState([
+    {
+      id: 1,
+      name: "Margherita Pizza",
+      description: "Classic fresh mozzarella, tomato sauce, and basil",
+      price: 12.99,
+      rating: 5,
+      emoji: "🍕",
+      color: "#C4007F",
+    },
+    {
+      id: 2,
+      name: "Special Kebab",
+      description: "Grilled meat with fresh vegetables and sauce",
+      price: 14.99,
+      rating: 4.8,
+      emoji: "🌮",
+      color: "#F3B404",
+    },
+    {
+      id: 3,
+      name: "Greek Salad",
+      description: "Fresh vegetables with feta cheese and olives",
+      price: 11.99,
+      rating: 4.9,
+      emoji: "🥗",
+      color: "#41C485",
+    },
+  ]);
+
   return (
-    <div className="bg-[#1D1C1C] text-white min-h-screen">
-      {/* Hero Section - FULL SCREEN */}
-      <section className="min-h-screen flex items-center justify-center pt-24 px-4 bg-gradient-to-b from-[#1D1C1C] to-[#2a2a2a] relative overflow-hidden">
-        {/* Decorative Elements */}
-        <div className="absolute top-20 right-20 w-32 h-32 bg-[#C4007F] rounded-full opacity-10 blur-3xl"></div>
-        <div className="absolute bottom-20 left-20 w-40 h-40 bg-[#F3B404] rounded-full opacity-10 blur-3xl"></div>
+    <div className="bg-[#1D1C1C] text-white overflow-hidden">
+      {/* Floating Decorative Elements */}
+      <div className="fixed inset-0 pointer-events-none z-10">
+        <div className="absolute w-20 h-20 bg-[rgba(196,0,127,0.3)] rounded-full top-[15%] left-[5%] animate-pulse opacity-60"></div>
+        <div
+          className="absolute w-16 h-16 bg-[rgba(65,196,133,0.3)] rounded-full top-[60%] left-[8%] animate-bounce opacity-60"
+          style={{ animationDelay: "2s" }}
+        ></div>
+        <div
+          className="absolute w-24 h-24 bg-[rgba(243,180,4,0.3)] rounded-full top-[25%] right-[5%] animate-pulse opacity-60"
+          style={{ animationDelay: "1s" }}
+        ></div>
+        <div
+          className="absolute w-16 h-16 bg-[rgba(65,196,133,0.3)] rounded-full top-[70%] right-[10%] animate-bounce opacity-60"
+          style={{ animationDelay: "3s" }}
+        ></div>
+      </div>
 
-        <div className="text-center relative z-10 max-w-4xl">
-          <div className="mb-6">
-            <p className="text-lg text-gray-400 tracking-widest font-semibold">
-              🤤 AUTHENTIC MEDITERRANEAN CUISINE
-            </p>
-          </div>
+      {/* Floating Action Buttons */}
+      <div className="fixed right-8 top-1/2 transform -translate-y-1/2 flex flex-col gap-4 z-50">
+        <button className="w-14 h-14 rounded-full bg-[#41C485] text-white flex items-center justify-center shadow-lg hover:scale-110 transition-transform hover:shadow-2xl">
+          📞
+        </button>
+        <button className="w-14 h-14 rounded-full bg-[#41C485] text-white flex items-center justify-center shadow-lg hover:scale-110 transition-transform hover:shadow-2xl relative">
+          🛒
+          <span className="absolute -top-2 -right-2 bg-[#C4007F] text-white text-xs font-bold rounded-full w-6 h-6 flex items-center justify-center">
+            3
+          </span>
+        </button>
+      </div>
 
-          <h1 className="text-7xl md:text-8xl font-bold mb-6 leading-tight">
-            Order Fresh &amp; Delicious
-            <br />
-            <span className="bg-gradient-to-r from-[#C4007F] to-[#F3B404] bg-clip-text text-transparent">
-              Pizza &amp; Kebab
-            </span>
-          </h1>
+      {/* Hero Section */}
+      <section className="pt-32 pb-20 px-8 min-h-screen flex items-center relative z-20">
+        <div className="container mx-auto max-w-6xl">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+            {/* Left Content */}
+            <div className="animate-fadeInUp">
+              <div className="inline-flex items-center gap-2 bg-white bg-opacity-10 px-4 py-2 rounded-full text-xs font-medium tracking-widest mb-6">
+                <span>🍽️</span>
+                <span>AUTHENTIC MEDITERRANEAN CUISINE</span>
+              </div>
 
-          <p className="text-xl text-gray-300 mb-10 leading-relaxed">
-            Experience authentic Mediterranean cuisine delivered fast to your
-            doorstep. Fresh ingredients, amazing taste, every single time.
-          </p>
+              <h1 className="text-6xl lg:text-7xl font-bold leading-tight mb-6">
+                Order Fresh &amp; Delicious
+                <br />
+                <span className="bg-gradient-to-r from-[#C4007F] to-[#F3B404] bg-clip-text text-transparent">
+                  Pizza &amp; Kebab
+                </span>
+              </h1>
 
-          <div className="flex gap-6 justify-center flex-wrap">
-            <Link
-              to="/menu"
-              className="bg-[#C4007F] text-white px-10 py-4 rounded-full font-bold text-lg hover:bg-[#a60064] hover:scale-110 transition transform shadow-lg hover:shadow-2xl"
-            >
-              Order Now 🛒
-            </Link>
-            <Link
-              to="/menu"
-              className="border-3 border-[#F3B404] text-[#F3B404] px-10 py-4 rounded-full font-bold text-lg hover:bg-[#F3B404] hover:text-[#1D1C1C] transition transform shadow-lg hover:shadow-2xl"
-            >
-              View Menu 📋
-            </Link>
-          </div>
+              <p className="text-lg text-gray-300 mb-8 max-w-lg leading-relaxed">
+                Experience authentic Mediterranean cuisine delivered fast to
+                your doorstep. Fresh ingredients, amazing taste, every single
+                time.
+              </p>
 
-          {/* Customer Avatars */}
-          <div className="mt-16 flex justify-center items-center gap-4">
-            <div className="flex -space-x-3">
-              {[1, 2, 3, 4].map((i) => (
-                <div
-                  key={i}
-                  className="w-10 h-10 rounded-full bg-gradient-to-br from-[#C4007F] to-[#F3B404] flex items-center justify-center text-xs font-bold border-2 border-[#1D1C1C]"
+              <div className="flex flex-col sm:flex-row gap-4 mb-12">
+                <Link
+                  to="/menu"
+                  className="px-8 py-4 bg-[#C4007F] text-white rounded-xl font-bold text-lg hover:bg-[#9e0066] hover:-translate-y-1 transition-all shadow-lg hover:shadow-2xl"
                 >
-                  😊
+                  Order Now 🛒
+                </Link>
+                <Link
+                  to="/menu"
+                  className="px-8 py-4 border-2 border-[#F3B404] text-[#F3B404] rounded-xl font-bold text-lg hover:bg-[#F3B404] hover:text-[#1D1C1C] hover:-translate-y-1 transition-all shadow-lg"
+                >
+                  View Menu 📋
+                </Link>
+              </div>
+
+              <div className="flex items-center gap-4">
+                <div className="flex -space-x-3">
+                  <div className="w-12 h-12 rounded-full bg-[#C4007F] border-3 border-[#1D1C1C] flex items-center justify-center text-white font-bold">
+                    😊
+                  </div>
+                  <div className="w-12 h-12 rounded-full bg-[#F3B404] border-3 border-[#1D1C1C] flex items-center justify-center text-white font-bold">
+                    😊
+                  </div>
+                  <div className="w-12 h-12 rounded-full bg-[#41C485] border-3 border-[#1D1C1C] flex items-center justify-center text-white font-bold">
+                    😊
+                  </div>
+                  <div className="w-12 h-12 rounded-full bg-[#C4007F] border-3 border-[#1D1C1C] flex items-center justify-center text-white font-bold">
+                    😊
+                  </div>
                 </div>
-              ))}
+                <div>
+                  <div className="text-xl font-bold">
+                    <span className="text-[#C4007F]">2k+</span> Happy Customers
+                  </div>
+                </div>
+              </div>
             </div>
-            <span className="text-gray-300 ml-4">
-              <span className="font-bold text-[#C4007F]">2k+</span> Happy
-              Customers
-            </span>
+
+            {/* Right Image */}
+            <div className="relative hidden lg:block animate-fadeInRight">
+              <div className="absolute w-60 h-60 rounded-full bg-gradient-radial from-[rgba(196,0,127,0.2)] to-transparent animate-pulse"></div>
+              <div className="relative z-10 text-9xl flex items-center justify-center">
+                🍕
+              </div>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* Why Choose Haminan Section */}
-      <section className="py-32 bg-[#2a2a2a] px-4">
+      {/* Why Choose Haminan */}
+      <section className="py-20 px-8 bg-[rgba(255,255,255,0.02)]">
         <div className="container mx-auto max-w-6xl">
-          <h2 className="text-5xl md:text-6xl font-bold text-center mb-8">
+          <h2 className="text-5xl font-bold text-center mb-4">
             Why Choose <span className="text-[#C4007F]">Haminan?</span>
           </h2>
           <p className="text-center text-gray-400 text-lg mb-16">
             Exceptional quality, taste, and service
           </p>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
-            <div className="bg-[#1D1C1C] p-10 rounded-2xl border-2 border-[#C4007F] hover:border-[#F3B404] hover:transform hover:scale-105 transition group cursor-pointer">
-              <div className="text-6xl mb-6 group-hover:scale-125 transition transform">
-                🍕
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {[
+              {
+                emoji: "🍕",
+                title: "Fresh Ingredients",
+                desc: "We use only the freshest, highest quality ingredients sourced locally for every dish.",
+              },
+              {
+                emoji: "⚡",
+                title: "Fast Delivery",
+                desc: "Quick preparation and fast delivery right to your door, hot and fresh every time.",
+              },
+              {
+                emoji: "😊",
+                title: "Great Taste",
+                desc: "Authentic recipes prepared by experienced chefs for the ultimate flavor experience.",
+              },
+            ].map((item, idx) => (
+              <div
+                key={idx}
+                className="bg-[#1D1C1C] p-8 rounded-2xl border-2 border-[#C4007F] hover:border-[#F3B404] hover:scale-105 transition-all group cursor-pointer"
+              >
+                <div className="text-5xl mb-4 group-hover:scale-125 transition-transform">
+                  {item.emoji}
+                </div>
+                <h3 className="text-2xl font-bold mb-3 text-[#C4007F] group-hover:text-[#F3B404] transition-colors">
+                  {item.title}
+                </h3>
+                <p className="text-gray-400 leading-relaxed">{item.desc}</p>
               </div>
-              <h3 className="text-3xl font-bold mb-4 text-[#C4007F] group-hover:text-[#F3B404] transition">
-                Fresh Ingredients
-              </h3>
-              <p className="text-gray-400 text-lg leading-relaxed">
-                We use only the freshest, highest quality ingredients sourced
-                locally for every dish.
-              </p>
-            </div>
-
-            <div className="bg-[#1D1C1C] p-10 rounded-2xl border-2 border-[#F3B404] hover:border-[#C4007F] hover:transform hover:scale-105 transition group cursor-pointer">
-              <div className="text-6xl mb-6 group-hover:scale-125 transition transform">
-                ⚡
-              </div>
-              <h3 className="text-3xl font-bold mb-4 text-[#F3B404] group-hover:text-[#C4007F] transition">
-                Fast Delivery
-              </h3>
-              <p className="text-gray-400 text-lg leading-relaxed">
-                Quick preparation and fast delivery right to your door, hot and
-                fresh every time.
-              </p>
-            </div>
-
-            <div className="bg-[#1D1C1C] p-10 rounded-2xl border-2 border-[#41C485] hover:border-[#C4007F] hover:transform hover:scale-105 transition group cursor-pointer">
-              <div className="text-6xl mb-6 group-hover:scale-125 transition transform">
-                😊
-              </div>
-              <h3 className="text-3xl font-bold mb-4 text-[#41C485] group-hover:text-[#F3B404] transition">
-                Great Taste
-              </h3>
-              <p className="text-gray-400 text-lg leading-relaxed">
-                Authentic recipes prepared by experienced chefs for the ultimate
-                flavor experience.
-              </p>
-            </div>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* Featured Menu Items */}
-      <section className="py-32 bg-[#1D1C1C] px-4">
+      {/* Featured Pizzas */}
+      <section className="py-20 px-8">
         <div className="container mx-auto max-w-6xl">
-          <h2 className="text-5xl md:text-6xl font-bold text-center mb-4">
-            Our Most Popular <span className="text-[#C4007F]">Items</span>
-          </h2>
-          <p className="text-center text-gray-400 text-lg mb-20">
-            Customer favorites that keep them coming back
-          </p>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
-            {/* Margherita Pizza */}
-            <div className="group cursor-pointer">
-              <div className="relative mb-6 overflow-hidden rounded-2xl h-64 bg-gradient-to-b from-[#C4007F] to-[#1D1C1C] flex items-center justify-center shadow-2xl group-hover:shadow-[0_0_40px_rgba(196,0,127,0.5)] transition">
-                <img
-                  src="https://via.placeholder.com/300x300?text=Margherita+Pizza"
-                  alt="Margherita"
-                  className="w-full h-full object-cover group-hover:scale-110 transition transform duration-300"
-                />
-                <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-30 transition"></div>
-              </div>
-              <h3 className="text-2xl font-bold text-white mb-2">
-                Margherita Pizza
-              </h3>
-              <p className="text-gray-400 text-sm mb-4">
-                Classic fresh mozzarella, tomato sauce, and basil
-              </p>
-              <div className="flex justify-between items-center">
-                <span className="text-3xl font-bold text-[#C4007F]">
-                  €12.99
-                </span>
-                <span className="text-lg text-[#F3B404] font-bold">⭐ 5.0</span>
-              </div>
+          <div className="flex justify-between items-center mb-12">
+            <h2 className="text-5xl font-bold">
+              Our Most Popular <span className="text-[#C4007F]">Items</span>
+            </h2>
+            <div className="flex gap-3">
+              <button className="w-12 h-12 rounded-full bg-white bg-opacity-10 border border-white border-opacity-20 hover:bg-[#41C485] transition-all flex items-center justify-center">
+                ←
+              </button>
+              <button className="w-12 h-12 rounded-full bg-white bg-opacity-10 border border-white border-opacity-20 hover:bg-[#41C485] transition-all flex items-center justify-center">
+                →
+              </button>
             </div>
+          </div>
 
-            {/* Special Kebab */}
-            <div className="group cursor-pointer">
-              <div className="relative mb-6 overflow-hidden rounded-2xl h-64 bg-gradient-to-b from-[#F3B404] to-[#1D1C1C] flex items-center justify-center shadow-2xl group-hover:shadow-[0_0_40px_rgba(243,180,4,0.5)] transition">
-                <img
-                  src="https://via.placeholder.com/300x300?text=Special+Kebab"
-                  alt="Kebab"
-                  className="w-full h-full object-cover group-hover:scale-110 transition transform duration-300"
-                />
-                <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-30 transition"></div>
-              </div>
-              <h3 className="text-2xl font-bold text-white mb-2">
-                Special Kebab
-              </h3>
-              <p className="text-gray-400 text-sm mb-4">
-                Grilled meat with fresh vegetables and sauce
-              </p>
-              <div className="flex justify-between items-center">
-                <span className="text-3xl font-bold text-[#C4007F]">
-                  €14.99
-                </span>
-                <span className="text-lg text-[#F3B404] font-bold">⭐ 4.8</span>
-              </div>
-            </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {pizzas.map((pizza) => (
+              <div
+                key={pizza.id}
+                className="bg-[rgba(255,255,255,0.05)] rounded-2xl p-6 border border-[rgba(255,255,255,0.1)] hover:-translate-y-3 hover:shadow-2xl transition-all group"
+              >
+                {/* Image */}
+                <div className="relative mb-6 flex items-center justify-center h-48">
+                  <div className="absolute w-40 h-40 rounded-full bg-gradient-radial from-[rgba(196,0,127,0.2)] to-transparent"></div>
+                  <div className="relative z-10 text-7xl">{pizza.emoji}</div>
+                  <button className="absolute -right-4 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-[#41C485] text-white text-xl hover:scale-110 shadow-lg transition-transform z-20 group-hover:scale-125">
+                    +
+                  </button>
+                </div>
 
-            {/* Greek Salad */}
-            <div className="group cursor-pointer">
-              <div className="relative mb-6 overflow-hidden rounded-2xl h-64 bg-gradient-to-b from-[#41C485] to-[#1D1C1C] flex items-center justify-center shadow-2xl group-hover:shadow-[0_0_40px_rgba(65,196,133,0.5)] transition">
-                <img
-                  src="https://via.placeholder.com/300x300?text=Greek+Salad"
-                  alt="Salad"
-                  className="w-full h-full object-cover group-hover:scale-110 transition transform duration-300"
-                />
-                <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-30 transition"></div>
+                {/* Info */}
+                <h3 className="text-xl font-bold text-center mb-2">
+                  {pizza.name}
+                </h3>
+                <p className="text-gray-400 text-sm text-center mb-3 min-h-10">
+                  {pizza.description}
+                </p>
+
+                {/* Rating */}
+                <div className="flex justify-center gap-1 mb-3">
+                  {[...Array(5)].map((_, i) => (
+                    <span
+                      key={i}
+                      className={
+                        i < Math.floor(pizza.rating)
+                          ? "text-[#F3B404]"
+                          : "text-[rgba(243,180,4,0.3)]"
+                      }
+                    >
+                      ⭐
+                    </span>
+                  ))}
+                </div>
+
+                {/* Price */}
+                <div className="text-2xl font-bold text-[#C4007F] text-center">
+                  €{pizza.price}
+                </div>
               </div>
-              <h3 className="text-2xl font-bold text-white mb-2">
-                Greek Salad
-              </h3>
-              <p className="text-gray-400 text-sm mb-4">
-                Fresh vegetables with feta cheese and olives
-              </p>
-              <div className="flex justify-between items-center">
-                <span className="text-3xl font-bold text-[#C4007F]">
-                  €11.99
-                </span>
-                <span className="text-lg text-[#F3B404] font-bold">⭐ 4.9</span>
-              </div>
-            </div>
+            ))}
           </div>
         </div>
       </section>
 
       {/* Stats Section */}
-      <section className="py-32 bg-[#2a2a2a] px-4">
+      <section className="py-20 px-8 bg-[#2a2a2a]">
         <div className="container mx-auto max-w-6xl">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
-            <div className="text-center p-10 bg-[#1D1C1C] rounded-2xl border-l-4 border-[#C4007F] hover:transform hover:scale-110 transition">
-              <h3 className="text-6xl md:text-7xl font-bold text-[#C4007F] mb-3">
-                1000+
-              </h3>
-              <p className="text-gray-400 text-xl">Happy Customers</p>
-            </div>
-            <div className="text-center p-10 bg-[#1D1C1C] rounded-2xl border-l-4 border-[#F3B404] hover:transform hover:scale-110 transition">
-              <h3 className="text-6xl md:text-7xl font-bold text-[#F3B404] mb-3">
-                50+
-              </h3>
-              <p className="text-gray-400 text-xl">Menu Items</p>
-            </div>
-            <div className="text-center p-10 bg-[#1D1C1C] rounded-2xl border-l-4 border-[#41C485] hover:transform hover:scale-110 transition">
-              <h3 className="text-6xl md:text-7xl font-bold text-[#41C485] mb-3">
-                30 min
-              </h3>
-              <p className="text-gray-400 text-xl">Average Delivery</p>
-            </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {[
+              { number: "1000+", label: "Happy Customers", color: "#C4007F" },
+              { number: "50+", label: "Menu Items", color: "#F3B404" },
+              { number: "30 min", label: "Average Delivery", color: "#41C485" },
+            ].map((stat, idx) => (
+              <div
+                key={idx}
+                className="bg-[#1D1C1C] p-8 rounded-2xl text-center border-l-4 hover:scale-110 transition-transform"
+                style={{ borderColor: stat.color }}
+              >
+                <div
+                  className="text-6xl font-bold mb-2"
+                  style={{ color: stat.color }}
+                >
+                  {stat.number}
+                </div>
+                <p className="text-gray-400 text-lg">{stat.label}</p>
+              </div>
+            ))}
           </div>
         </div>
       </section>
 
       {/* CTA Section */}
-      <section className="py-32 text-center px-4 bg-gradient-to-b from-[#1D1C1C] to-[#2a2a2a]">
-        <h2 className="text-5xl md:text-6xl font-bold mb-6">
+      <section className="py-20 px-8 text-center bg-gradient-to-b from-[#1D1C1C] to-[#2a2a2a]">
+        <h2 className="text-5xl font-bold mb-4">
           Ready to Order?
           <br />
           <span className="text-[#F3B404]">Let's Go! 🍕</span>
         </h2>
-        <p className="text-gray-400 text-xl mb-12 max-w-2xl mx-auto leading-relaxed">
+        <p className="text-gray-400 text-xl mb-8 max-w-2xl mx-auto leading-relaxed">
           Browse our complete menu and get your favorite food delivered to your
           door in minutes.
         </p>
         <Link
           to="/menu"
-          className="bg-[#41C485] hover:bg-[#35a970] text-white px-12 py-4 rounded-full font-bold text-xl transition transform hover:scale-110 inline-block shadow-lg hover:shadow-2xl"
+          className="px-12 py-4 bg-[#41C485] hover:bg-[#35a970] text-white rounded-full font-bold text-lg transition-all transform hover:scale-110 hover:shadow-2xl inline-block"
         >
           Browse Our Menu →
         </Link>
       </section>
+
+      {/* Footer */}
+      <footer className="bg-[rgba(0,0,0,0.3)] py-16 px-8 mt-12 relative z-20">
+        <div className="container mx-auto max-w-6xl">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+            {/* About */}
+            <div>
+              <h3 className="text-xl font-bold text-[#C4007F] mb-4">
+                Haminan Marmaris
+              </h3>
+              <p className="text-gray-400 text-sm leading-relaxed">
+                Authentic Mediterranean cuisine with fresh ingredients. Fast
+                delivery to your doorstep.
+              </p>
+            </div>
+
+            {/* Contact */}
+            <div>
+              <h3 className="text-lg font-bold text-[#F3B404] mb-4">Contact</h3>
+              <div className="space-y-2 text-sm text-gray-400">
+                <p>📍 Riekontie 23 25, 49410 Hamina</p>
+                <p>📞 +358 5 3535110</p>
+                <p>🕐 11:00 - 22:00</p>
+              </div>
+            </div>
+
+            {/* Menu Links */}
+            <div>
+              <h3 className="text-lg font-bold text-[#F3B404] mb-4">Menu</h3>
+              <ul className="space-y-2 text-sm">
+                <li>
+                  <Link
+                    to="/menu"
+                    className="text-gray-400 hover:text-[#F3B404] transition"
+                  >
+                    Pizza
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    to="/menu"
+                    className="text-gray-400 hover:text-[#F3B404] transition"
+                  >
+                    Kebab
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    to="/menu"
+                    className="text-gray-400 hover:text-[#F3B404] transition"
+                  >
+                    Salads
+                  </Link>
+                </li>
+              </ul>
+            </div>
+
+            {/* Follow Us */}
+            <div>
+              <h3 className="text-lg font-bold text-[#F3B404] mb-4">
+                Follow Us
+              </h3>
+              <div className="flex gap-3">
+                <a
+                  href="#"
+                  className="w-10 h-10 rounded-full bg-white bg-opacity-10 flex items-center justify-center hover:bg-[#41C485] transition text-lg"
+                >
+                  f
+                </a>
+                <a
+                  href="#"
+                  className="w-10 h-10 rounded-full bg-white bg-opacity-10 flex items-center justify-center hover:bg-[#41C485] transition text-lg"
+                >
+                  📷
+                </a>
+                <a
+                  href="#"
+                  className="w-10 h-10 rounded-full bg-white bg-opacity-10 flex items-center justify-center hover:bg-[#41C485] transition text-lg"
+                >
+                  𝕏
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <div className="border-t border-white border-opacity-10 pt-8 text-center text-gray-500 text-sm">
+            <p>&copy; 2025 Haminan Marmaris. All rights reserved.</p>
+          </div>
+        </div>
+      </footer>
+
+      <style>{`
+        @keyframes fadeInUp {
+          from {
+            opacity: 0;
+            transform: translateY(30px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+
+        @keyframes fadeInRight {
+          from {
+            opacity: 0;
+            transform: translateX(30px);
+          }
+          to {
+            opacity: 1;
+            transform: translateX(0);
+          }
+        }
+
+        .animate-fadeInUp {
+          animation: fadeInUp 1s ease forwards;
+        }
+
+        .animate-fadeInRight {
+          animation: fadeInRight 1s ease forwards;
+        }
+
+        .bg-gradient-radial {
+          background: radial-gradient(circle, rgba(196, 0, 127, 0.2) 0%, transparent 70%);
+        }
+      `}</style>
     </div>
   );
 }
