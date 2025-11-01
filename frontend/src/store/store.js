@@ -1,3 +1,4 @@
+// src/store/store.js - UPDATED with Language Support
 import { create } from "zustand";
 
 // Auth Store
@@ -19,6 +20,16 @@ export const useAuthStore = create((set) => ({
 
   isLoggedIn: () => !!localStorage.getItem("token"),
   isAdmin: () => JSON.parse(localStorage.getItem("user"))?.role === "admin",
+}));
+
+// Language Store
+export const useLanguageStore = create((set) => ({
+  language: localStorage.getItem("language") || "en",
+
+  setLanguage: (language) => {
+    localStorage.setItem("language", language);
+    set({ language });
+  },
 }));
 
 // Cart Store

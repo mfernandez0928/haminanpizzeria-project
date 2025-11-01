@@ -1,10 +1,13 @@
+// src/components/Header.jsx - UPDATED with Language Support
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
-import { useAuthStore, useCartStore } from "../store/store";
+import { useAuthStore, useCartStore, useLanguageStore } from "../store/store";
 
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
+  const [showLanguages, setShowLanguages] = useState(false);
   const { user, logout, isLoggedIn, isAdmin } = useAuthStore();
+  const { language, setLanguage } = useLanguageStore();
   const cartItems = useCartStore((state) => state.items);
   const navigate = useNavigate();
 
@@ -12,6 +15,12 @@ export default function Header() {
     logout();
     navigate("/");
   };
+
+  const languages = [
+    { code: "en", name: "English", flag: "🇺🇸" },
+    { code: "fi", name: "Suomi", flag: "🇫🇮" },
+    { code: "sv", name: "Svenska", flag: "🇸🇪" },
+  ];
 
   return (
     <header className="fixed top-0 w-full bg-[#1D1C1C] border-b-2 border-[#C4007F] z-50 shadow-lg">
@@ -32,20 +41,28 @@ export default function Header() {
             to="/"
             className="text-white hover:text-[#C4007F] transition-colors"
           >
-            Home
+            {language === "en" ? "Home" : language === "fi" ? "Koti" : "Hem"}
           </Link>
           <Link
             to="/menu"
             className="text-white hover:text-[#C4007F] transition-colors"
           >
-            Menu
+            {language === "en"
+              ? "Menu"
+              : language === "fi"
+              ? "Valikko"
+              : "Meny"}
           </Link>
           {isLoggedIn() && (
             <Link
               to="/orders"
               className="text-white hover:text-[#C4007F] transition-colors"
             >
-              Orders
+              {language === "en"
+                ? "Orders"
+                : language === "fi"
+                ? "Tilaukset"
+                : "Beställningar"}
             </Link>
           )}
           {isAdmin() && (
@@ -60,6 +77,40 @@ export default function Header() {
 
         {/* Actions */}
         <div className="flex items-center gap-4">
+          {/* Language Selector */}
+          <div className="relative">
+            <button
+              onClick={() => setShowLanguages(!showLanguages)}
+              className="flex items-center gap-2 px-3 py-2 rounded-full border border-[#C4007F] text-white hover:bg-[#C4007F] transition"
+            >
+              <span className="text-lg">
+                {languages.find((l) => l.code === language)?.flag}
+              </span>
+              <span className="text-sm">{language.toUpperCase()}</span>
+            </button>
+            {showLanguages && (
+              <div className="absolute top-full mt-2 right-0 bg-[#2a2a2a] rounded-lg shadow-lg py-2 w-40 border border-[#C4007F]">
+                {languages.map((lang) => (
+                  <button
+                    key={lang.code}
+                    onClick={() => {
+                      setLanguage(lang.code);
+                      setShowLanguages(false);
+                    }}
+                    className={`w-full text-left px-4 py-2 flex items-center gap-2 transition ${
+                      language === lang.code
+                        ? "bg-[#C4007F] text-white"
+                        : "text-white hover:bg-[#C4007F]"
+                    }`}
+                  >
+                    <span className="text-lg">{lang.flag}</span>
+                    <span>{lang.name}</span>
+                  </button>
+                ))}
+              </div>
+            )}
+          </div>
+
           {/* Cart */}
           <Link to="/menu" className="relative">
             <span className="text-2xl cursor-pointer hover:scale-110 transition">
@@ -83,7 +134,11 @@ export default function Header() {
                   onClick={handleLogout}
                   className="w-full text-left px-4 py-2 text-white hover:bg-[#C4007F] transition"
                 >
-                  Logout
+                  {language === "en"
+                    ? "Logout"
+                    : language === "fi"
+                    ? "Kirjaudu ulos"
+                    : "Logga ut"}
                 </button>
               </div>
             </div>
@@ -93,16 +148,32 @@ export default function Header() {
                 to="/login"
                 className="text-white hover:text-[#C4007F] transition"
               >
-                Sign In
+                {language === "en"
+                  ? "Sign In"
+                  : language === "fi"
+                  ? "Kirjaudu sisään"
+                  : "Logga in"}
               </Link>
               <Link
                 to="/register"
                 className="bg-[#41C485] text-white px-4 py-2 rounded-full hover:bg-[#35a970] transition"
               >
-                Sign Up
+                {language === "en"
+                  ? "Sign Up"
+                  : language === "fi"
+                  ? "Rekisteröidy"
+                  : "Registrera"}
               </Link>
             </>
           )}
+
+          {/* Mobile Menu */}
+          <button
+            onClick={() => setIsOpen(!isOpen)}
+            className="md:hidden text-white text-2xl"
+          >
+            ☰
+          </button>
         </div>
       </div>
 
@@ -110,14 +181,30 @@ export default function Header() {
       {isOpen && (
         <nav className="md:hidden bg-[#2a2a2a] py-4 px-4 space-y-2">
           <Link to="/" className="block text-white hover:text-[#C4007F] py-2">
-            Home
+            {language === "en" ? "Home" : language === "fi" ? "Koti" : "Hem"}
           </Link>
           <Link
             to="/menu"
             className="block text-white hover:text-[#C4007F] py-2"
           >
-            Menu
+            {language === "en"
+              ? "Menu"
+              : language === "fi"
+              ? "Valikko"
+              : "Meny"}
           </Link>
+          {isLoggedIn() && (
+            <Link
+              to="/orders"
+              className="block text-white hover:text-[#C4007F] py-2"
+            >
+              {language === "en"
+                ? "Orders"
+                : language === "fi"
+                ? "Tilaukset"
+                : "Beställningar"}
+            </Link>
+          )}
         </nav>
       )}
     </header>
