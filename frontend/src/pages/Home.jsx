@@ -1,40 +1,13 @@
-// src/pages/Home.jsx - FULL DESIGN FROM ORIGINAL
+// src/pages/Home.jsx - FIXED VERSION
 import { Link } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import { useLanguageStore } from "../store/store";
 
 export default function Home() {
-  const [pizzas] = useState([
-    {
-      id: 1,
-      name: "Margherita Pizza",
-      description: "Classic fresh mozzarella, tomato sauce, and basil",
-      price: 12.99,
-      rating: 5,
-      emoji: "🍕",
-      color: "#C4007F",
-    },
-    {
-      id: 2,
-      name: "Special Kebab",
-      description: "Grilled meat with fresh vegetables and sauce",
-      price: 14.99,
-      rating: 4.8,
-      emoji: "🌮",
-      color: "#F3B404",
-    },
-    {
-      id: 3,
-      name: "Greek Salad",
-      description: "Fresh vegetables with feta cheese and olives",
-      price: 11.99,
-      rating: 4.9,
-      emoji: "🥗",
-      color: "#41C485",
-    },
-  ]);
+  const { language } = useLanguageStore();
 
   return (
-    <div className="bg-[#1D1C1C] text-white overflow-hidden">
+    <div className="bg-[#1D1C1C] text-white min-h-screen">
       {/* Floating Decorative Elements */}
       <div className="fixed inset-0 pointer-events-none z-10">
         <div className="absolute w-20 h-20 bg-[rgba(196,0,127,0.3)] rounded-full top-[15%] left-[5%] animate-pulse opacity-60"></div>
@@ -65,17 +38,12 @@ export default function Home() {
         </button>
       </div>
 
-      {/* Hero Section */}
+      {/* Hero Section - NO WHITE BAR */}
       <section className="pt-32 pb-20 px-8 min-h-screen flex items-center relative z-20">
         <div className="container mx-auto max-w-6xl">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             {/* Left Content */}
             <div className="animate-fadeInUp">
-              <div className="inline-flex items-center gap-2 bg-white bg-opacity-10 px-4 py-2 rounded-full text-xs font-medium tracking-widest mb-6">
-                <span>🍽️</span>
-                <span>AUTHENTIC MEDITERRANEAN CUISINE</span>
-              </div>
-
               <h1 className="text-6xl lg:text-7xl font-bold leading-tight mb-6">
                 Order Fresh &amp; Delicious
                 <br />
@@ -128,7 +96,7 @@ export default function Home() {
               </div>
             </div>
 
-            {/* Right Image */}
+            {/* Right Emoji */}
             <div className="relative hidden lg:block animate-fadeInRight">
               <div className="absolute w-60 h-60 rounded-full bg-gradient-radial from-[rgba(196,0,127,0.2)] to-transparent animate-pulse"></div>
               <div className="relative z-10 text-9xl flex items-center justify-center">
@@ -139,7 +107,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Why Choose Haminan */}
+      {/* Features Section */}
       <section className="py-20 px-8 bg-[rgba(255,255,255,0.02)]">
         <div className="container mx-auto max-w-6xl">
           <h2 className="text-5xl font-bold text-center mb-4">
@@ -184,99 +152,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Featured Pizzas */}
-      <section className="py-20 px-8">
-        <div className="container mx-auto max-w-6xl">
-          <div className="flex justify-between items-center mb-12">
-            <h2 className="text-5xl font-bold">
-              Our Most Popular <span className="text-[#C4007F]">Items</span>
-            </h2>
-            <div className="flex gap-3">
-              <button className="w-12 h-12 rounded-full bg-white bg-opacity-10 border border-white border-opacity-20 hover:bg-[#41C485] transition-all flex items-center justify-center">
-                ←
-              </button>
-              <button className="w-12 h-12 rounded-full bg-white bg-opacity-10 border border-white border-opacity-20 hover:bg-[#41C485] transition-all flex items-center justify-center">
-                →
-              </button>
-            </div>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {pizzas.map((pizza) => (
-              <div
-                key={pizza.id}
-                className="bg-[rgba(255,255,255,0.05)] rounded-2xl p-6 border border-[rgba(255,255,255,0.1)] hover:-translate-y-3 hover:shadow-2xl transition-all group"
-              >
-                {/* Image */}
-                <div className="relative mb-6 flex items-center justify-center h-48">
-                  <div className="absolute w-40 h-40 rounded-full bg-gradient-radial from-[rgba(196,0,127,0.2)] to-transparent"></div>
-                  <div className="relative z-10 text-7xl">{pizza.emoji}</div>
-                  <button className="absolute -right-4 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-[#41C485] text-white text-xl hover:scale-110 shadow-lg transition-transform z-20 group-hover:scale-125">
-                    +
-                  </button>
-                </div>
-
-                {/* Info */}
-                <h3 className="text-xl font-bold text-center mb-2">
-                  {pizza.name}
-                </h3>
-                <p className="text-gray-400 text-sm text-center mb-3 min-h-10">
-                  {pizza.description}
-                </p>
-
-                {/* Rating */}
-                <div className="flex justify-center gap-1 mb-3">
-                  {[...Array(5)].map((_, i) => (
-                    <span
-                      key={i}
-                      className={
-                        i < Math.floor(pizza.rating)
-                          ? "text-[#F3B404]"
-                          : "text-[rgba(243,180,4,0.3)]"
-                      }
-                    >
-                      ⭐
-                    </span>
-                  ))}
-                </div>
-
-                {/* Price */}
-                <div className="text-2xl font-bold text-[#C4007F] text-center">
-                  €{pizza.price}
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Stats Section */}
-      <section className="py-20 px-8 bg-[#2a2a2a]">
-        <div className="container mx-auto max-w-6xl">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {[
-              { number: "1000+", label: "Happy Customers", color: "#C4007F" },
-              { number: "50+", label: "Menu Items", color: "#F3B404" },
-              { number: "30 min", label: "Average Delivery", color: "#41C485" },
-            ].map((stat, idx) => (
-              <div
-                key={idx}
-                className="bg-[#1D1C1C] p-8 rounded-2xl text-center border-l-4 hover:scale-110 transition-transform"
-                style={{ borderColor: stat.color }}
-              >
-                <div
-                  className="text-6xl font-bold mb-2"
-                  style={{ color: stat.color }}
-                >
-                  {stat.number}
-                </div>
-                <p className="text-gray-400 text-lg">{stat.label}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* CTA Section */}
       <section className="py-20 px-8 text-center bg-gradient-to-b from-[#1D1C1C] to-[#2a2a2a]">
         <h2 className="text-5xl font-bold mb-4">
@@ -300,7 +175,6 @@ export default function Home() {
       <footer className="bg-[rgba(0,0,0,0.3)] py-16 px-8 mt-12 relative z-20">
         <div className="container mx-auto max-w-6xl">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
-            {/* About */}
             <div>
               <h3 className="text-xl font-bold text-[#C4007F] mb-4">
                 Haminan Marmaris
@@ -310,8 +184,6 @@ export default function Home() {
                 delivery to your doorstep.
               </p>
             </div>
-
-            {/* Contact */}
             <div>
               <h3 className="text-lg font-bold text-[#F3B404] mb-4">Contact</h3>
               <div className="space-y-2 text-sm text-gray-400">
@@ -320,8 +192,6 @@ export default function Home() {
                 <p>🕐 11:00 - 22:00</p>
               </div>
             </div>
-
-            {/* Menu Links */}
             <div>
               <h3 className="text-lg font-bold text-[#F3B404] mb-4">Menu</h3>
               <ul className="space-y-2 text-sm">
@@ -351,8 +221,6 @@ export default function Home() {
                 </li>
               </ul>
             </div>
-
-            {/* Follow Us */}
             <div>
               <h3 className="text-lg font-bold text-[#F3B404] mb-4">
                 Follow Us
@@ -379,7 +247,6 @@ export default function Home() {
               </div>
             </div>
           </div>
-
           <div className="border-t border-white border-opacity-10 pt-8 text-center text-gray-500 text-sm">
             <p>&copy; 2025 Haminan Marmaris. All rights reserved.</p>
           </div>
