@@ -1,35 +1,27 @@
-import { Link, useNavigate, useLocation } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { useAuthStore, useCartStore, useLanguageStore } from "../store/store";
 import CartModal from "./CartModal";
 
 export default function Header() {
-  const [isOpen, setIsOpen] = useState(false); // ← ONLY ONE
+  const [isOpen, setIsOpen] = useState(false);
   const [showLanguages, setShowLanguages] = useState(false);
   const [showCart, setShowCart] = useState(false);
   const { user, logout, isLoggedIn, isAdmin } = useAuthStore();
   const { language, setLanguage } = useLanguageStore();
   const cartItems = useCartStore((state) => state.items);
   const navigate = useNavigate();
-  const location = useLocation(); // ← ADD THIS
 
   const handleLogout = () => {
     logout();
     navigate("/");
   };
 
-  const handleHomeClick = (e) => {
-    e.preventDefault();
-    if (location.pathname === "/") {
-      // Already on home, scroll to top smoothly
-      window.scrollTo({
-        top: 0,
-        behavior: "smooth",
-      });
-    } else {
-      // Not on home, navigate to home
-      navigate("/");
-    }
+  const handleHomeClick = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
     setIsOpen(false);
   };
 
@@ -161,7 +153,7 @@ export default function Header() {
               )}
             </div>
 
-            {/* Cart Button - OPENS MODAL */}
+            {/* Cart Button */}
             <button onClick={() => setShowCart(!showCart)} className="relative">
               <span className="text-2xl cursor-pointer hover:scale-110 transition">
                 🛒
@@ -217,7 +209,7 @@ export default function Header() {
               </>
             )}
 
-            {/* Mobile Menu */}
+            {/* Mobile Menu Button */}
             <button
               onClick={() => setIsOpen(!isOpen)}
               className="md:hidden text-white text-2xl"
@@ -230,12 +222,17 @@ export default function Header() {
         {/* Mobile Menu */}
         {isOpen && (
           <nav className="md:hidden bg-[#2a2a2a] py-4 px-4 space-y-2">
-            <Link to="/" className="block text-white hover:text-[#C4007F] py-2">
+            <Link
+              to="/"
+              className="block text-white hover:text-[#C4007F] py-2"
+              onClick={() => setIsOpen(false)}
+            >
               {language === "en" ? "Home" : language === "fi" ? "Koti" : "Hem"}
             </Link>
             <Link
               to="/menu"
               className="block text-white hover:text-[#C4007F] py-2"
+              onClick={() => setIsOpen(false)}
             >
               {language === "en"
                 ? "Menu"
@@ -247,6 +244,7 @@ export default function Header() {
               <Link
                 to="/orders"
                 className="block text-white hover:text-[#C4007F] py-2"
+                onClick={() => setIsOpen(false)}
               >
                 {language === "en"
                   ? "Orders"
