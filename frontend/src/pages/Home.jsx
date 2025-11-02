@@ -1,18 +1,129 @@
 import { Link } from "react-router-dom";
 import { useState } from "react";
-import { useCartStore } from "../store/store";
+import { useCartStore, useLanguageStore } from "../store/store";
 
 export default function Home() {
   const cartItems = useCartStore((state) => state.items);
   const [showPhone, setShowPhone] = useState(false);
+  const { language } = useLanguageStore();
 
   const handleCallClick = () => {
-    // Copy phone to clipboard
     const phone = "+358 5 3535110";
     navigator.clipboard.writeText(phone);
     setShowPhone(true);
     setTimeout(() => setShowPhone(false), 2000);
   };
+
+  // Translations matching the selected language
+  const translations = {
+    en: {
+      orderFresh: "Order Fresh & Delicious",
+      pizzaKebab: "Pizza & Kebab",
+      description:
+        "Experience authentic Mediterranean cuisine delivered fast to your doorstep. Fresh ingredients, amazing taste, every single time.",
+      orderNow: "Order Now 🛒",
+      viewMenu: "View Menu 📋",
+      happyCustomers: "Happy Customers",
+      whyChoose: "Why Choose",
+      quality: "Exceptional quality, taste, and service",
+      freshIngredients: "Fresh Ingredients",
+      freshDesc:
+        "We use only the freshest, highest quality ingredients sourced locally for every dish.",
+      fastDelivery: "Fast Delivery",
+      fastDesc:
+        "Quick preparation and fast delivery right to your door, hot and fresh every time.",
+      greatTaste: "Great Taste",
+      tasteDesc:
+        "Authentic recipes prepared by experienced chefs for the ultimate flavor experience.",
+      readyOrder: "Ready to Order?",
+      letsGo: "Let's Go! 🍕",
+      browseComplete:
+        "Browse our complete menu and get your favorite food delivered to your door in minutes.",
+      browseMenu: "Browse Our Menu →",
+      contact: "Contact",
+      riekontie: "📍 Riekontie 23 25, 49410 Hamina",
+      phone: "📞 +358 5 3535110",
+      hours: "🕐 11:00 - 22:00",
+      menu: "Menu",
+      pizza: "Pizza",
+      kebab: "Kebab",
+      salads: "Salads",
+      followUs: "Follow Us",
+      copyright: "© 2025 Haminan Marmaris. All rights reserved.",
+    },
+    fi: {
+      orderFresh: "Tilaa Tuoretta & Herkullis",
+      pizzaKebab: "Pizzaa & Kebab",
+      description:
+        "Koe aidon Välimeren keittiön nopeasta toimituksesta oviisi. Tuoreita raaka-aineita, upeaa makua, joka kerta.",
+      orderNow: "Tilaa Nyt 🛒",
+      viewMenu: "Katso Valikko 📋",
+      happyCustomers: "Tyytyväistä Asiakasta",
+      whyChoose: "Miksi Valita",
+      quality: "Poikkeuksellinen laatu, maku ja palvelu",
+      freshIngredients: "Tuoreet Raaka-aineet",
+      freshDesc:
+        "Käytämme vain tuoreimpia, korkeimman laadun raaka-aineita joka ruokalajissa.",
+      fastDelivery: "Nopea Toimitus",
+      fastDesc:
+        "Nopea valmistus ja toimitus oviisi, kuuma ja tuore joka kerta.",
+      greatTaste: "Hyvä Maku",
+      tasteDesc:
+        "Aidot reseptit valmistettuja kokeneilla kokkeilla lopullisen maun kokemukselle.",
+      readyOrder: "Valmis Tilaukseen?",
+      letsGo: "Mennään! 🍕",
+      browseComplete:
+        "Selaa koko ruokalistaansa ja saa suosikkiruokaasi kotiisi muutamassa minuutissa.",
+      browseMenu: "Selaa Ruokalistaa →",
+      contact: "Yhteystieto",
+      riekontie: "📍 Riekontie 23 25, 49410 Hamina",
+      phone: "📞 +358 5 3535110",
+      hours: "🕐 11:00 - 22:00",
+      menu: "Valikko",
+      pizza: "Pizza",
+      kebab: "Kebab",
+      salads: "Salaatit",
+      followUs: "Seuraa Meitä",
+      copyright: "© 2025 Haminan Marmaris. Kaikki oikeudet pidätetään.",
+    },
+    sv: {
+      orderFresh: "Beställ Fresh & Delicious",
+      pizzaKebab: "Pizza & Kebab",
+      description:
+        "Upplev autentisk medelhavskök levererad snabbt till din dörr. Färska ingredienser, fantastisk smak, varje gång.",
+      orderNow: "Beställ Nu 🛒",
+      viewMenu: "Se Meny 📋",
+      happyCustomers: "Nöjda Kunder",
+      whyChoose: "Varför Välja",
+      quality: "Exceptionell kvalitet, smak och service",
+      freshIngredients: "Färska Ingredienser",
+      freshDesc:
+        "Vi använder endast de färskaste, högsta kvalitets ingredienser för varje rätt.",
+      fastDelivery: "Snabb Leverans",
+      fastDesc:
+        "Snabb tillagning och leverans till din dörr, het och färsk varje gång.",
+      greatTaste: "Fantastisk Smak",
+      tasteDesc:
+        "Autentiska recept tilllagade av erfarna kockar för den ultimata smakupplevelsen.",
+      readyOrder: "Redo att Beställa?",
+      letsGo: "Låt oss gå! 🍕",
+      browseComplete:
+        "Bläddra i vår kompletta meny och få din favoritmat levererad till din dörr på minuter.",
+      browseMenu: "Bläddra i Meny →",
+      contact: "Kontakt",
+      riekontie: "📍 Riekontie 23 25, 49410 Hamina",
+      phone: "📞 +358 5 3535110",
+      hours: "🕐 11:00 - 22:00",
+      menu: "Meny",
+      pizza: "Pizza",
+      kebab: "Kebab",
+      salads: "Sallader",
+      followUs: "Följ Oss",
+      copyright: "© 2025 Haminan Marmaris. Alla rättigheter förbehållna.",
+    },
+  };
+
+  const t = translations[language];
 
   return (
     <div className="bg-[#1D1C1C] text-white overflow-hidden">
@@ -35,7 +146,7 @@ export default function Home() {
 
       {/* Floating Action Buttons */}
       <div className="fixed right-8 top-1/2 transform -translate-y-1/2 flex flex-col gap-4 z-50 pointer-events-auto">
-        {/* Call Button - FIXED */}
+        {/* Call Button */}
         <button
           onClick={handleCallClick}
           className="w-14 h-14 rounded-full bg-[#41C485] text-white flex items-center justify-center shadow-lg hover:scale-110 transition-transform hover:shadow-2xl relative group"
@@ -73,17 +184,15 @@ export default function Home() {
             {/* Left Content */}
             <div className="animate-fadeInUp">
               <h1 className="text-6xl lg:text-7xl font-bold leading-tight mb-6">
-                Order Fresh &amp; Delicious
+                {t.orderFresh}
                 <br />
                 <span className="bg-gradient-to-r from-[#C4007F] to-[#F3B404] bg-clip-text text-transparent">
-                  Pizza &amp; Kebab
+                  {t.pizzaKebab}
                 </span>
               </h1>
 
               <p className="text-lg text-gray-300 mb-8 max-w-lg leading-relaxed">
-                Experience authentic Mediterranean cuisine delivered fast to
-                your doorstep. Fresh ingredients, amazing taste, every single
-                time.
+                {t.description}
               </p>
 
               <div className="flex flex-col sm:flex-row gap-4 mb-12">
@@ -91,13 +200,13 @@ export default function Home() {
                   to="/menu"
                   className="px-8 py-4 bg-[#C4007F] text-white rounded-xl font-bold text-lg hover:bg-[#9e0066] hover:-translate-y-1 transition-all shadow-lg hover:shadow-2xl"
                 >
-                  Order Now 🛒
+                  {t.orderNow}
                 </Link>
                 <Link
                   to="/menu"
                   className="px-8 py-4 border-2 border-[#F3B404] text-[#F3B404] rounded-xl font-bold text-lg hover:bg-[#F3B404] hover:text-[#1D1C1C] hover:-translate-y-1 transition-all shadow-lg"
                 >
-                  View Menu 📋
+                  {t.viewMenu}
                 </Link>
               </div>
 
@@ -118,13 +227,14 @@ export default function Home() {
                 </div>
                 <div>
                   <div className="text-xl font-bold">
-                    <span className="text-[#C4007F]">2k+</span> Happy Customers
+                    <span className="text-[#C4007F]">2k+</span>{" "}
+                    {t.happyCustomers}
                   </div>
                 </div>
               </div>
             </div>
 
-            {/* Right Emoji */}
+            {/* Right Pizza Image */}
             <div className="relative hidden lg:block animate-fadeInRight">
               <div className="absolute w-60 h-60 rounded-full bg-gradient-radial from-[rgba(196,0,127,0.2)] to-transparent animate-pulse"></div>
               <img
@@ -141,28 +251,26 @@ export default function Home() {
       <section className="py-20 px-8 bg-[rgba(255,255,255,0.02)]">
         <div className="container mx-auto max-w-6xl">
           <h2 className="text-5xl font-bold text-center mb-4">
-            Why Choose <span className="text-[#C4007F]">Haminan?</span>
+            {t.whyChoose} <span className="text-[#C4007F]">Haminan?</span>
           </h2>
-          <p className="text-center text-gray-400 text-lg mb-16">
-            Exceptional quality, taste, and service
-          </p>
+          <p className="text-center text-gray-400 text-lg mb-16">{t.quality}</p>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {[
               {
                 emoji: "🍕",
-                title: "Fresh Ingredients",
-                desc: "We use only the freshest, highest quality ingredients sourced locally for every dish.",
+                title: t.freshIngredients,
+                desc: t.freshDesc,
               },
               {
                 emoji: "⚡",
-                title: "Fast Delivery",
-                desc: "Quick preparation and fast delivery right to your door, hot and fresh every time.",
+                title: t.fastDelivery,
+                desc: t.fastDesc,
               },
               {
                 emoji: "😊",
-                title: "Great Taste",
-                desc: "Authentic recipes prepared by experienced chefs for the ultimate flavor experience.",
+                title: t.greatTaste,
+                desc: t.tasteDesc,
               },
             ].map((item, idx) => (
               <div
@@ -185,23 +293,22 @@ export default function Home() {
       {/* CTA Section */}
       <section className="py-20 px-8 text-center bg-gradient-to-b from-[#1D1C1C] to-[#2a2a2a]">
         <h2 className="text-5xl font-bold mb-4">
-          Ready to Order?
+          {t.readyOrder}
           <br />
-          <span className="text-[#F3B404]">Let's Go! 🍕</span>
+          <span className="text-[#F3B404]">{t.letsGo}</span>
         </h2>
         <p className="text-gray-400 text-xl mb-8 max-w-2xl mx-auto leading-relaxed">
-          Browse our complete menu and get your favorite food delivered to your
-          door in minutes.
+          {t.browseComplete}
         </p>
         <Link
           to="/menu"
           className="px-12 py-4 bg-[#41C485] hover:bg-[#35a970] text-white rounded-full font-bold text-lg transition-all transform hover:scale-110 hover:shadow-2xl inline-block"
         >
-          Browse Our Menu →
+          {t.browseMenu}
         </Link>
       </section>
 
-      {/* ONE Footer Only */}
+      {/* Footer */}
       <footer className="bg-[#1D1C1C] py-16 px-8 border-t-2 border-[#C4007F] relative z-20">
         <div className="container mx-auto max-w-6xl">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
@@ -215,22 +322,26 @@ export default function Home() {
               </p>
             </div>
             <div>
-              <h3 className="text-lg font-bold text-[#F3B404] mb-4">Contact</h3>
+              <h3 className="text-lg font-bold text-[#F3B404] mb-4">
+                {t.contact}
+              </h3>
               <div className="space-y-2 text-sm text-gray-400">
-                <p>📍 Riekontie 23 25, 49410 Hamina</p>
-                <p>📞 +358 5 3535110</p>
-                <p>🕐 11:00 - 22:00</p>
+                <p>{t.riekontie}</p>
+                <p>{t.phone}</p>
+                <p>{t.hours}</p>
               </div>
             </div>
             <div>
-              <h3 className="text-lg font-bold text-[#F3B404] mb-4">Menu</h3>
+              <h3 className="text-lg font-bold text-[#F3B404] mb-4">
+                {t.menu}
+              </h3>
               <ul className="space-y-2 text-sm">
                 <li>
                   <Link
                     to="/menu"
                     className="text-gray-400 hover:text-[#F3B404] transition"
                   >
-                    Pizza
+                    {t.pizza}
                   </Link>
                 </li>
                 <li>
@@ -238,7 +349,7 @@ export default function Home() {
                     to="/menu"
                     className="text-gray-400 hover:text-[#F3B404] transition"
                   >
-                    Kebab
+                    {t.kebab}
                   </Link>
                 </li>
                 <li>
@@ -246,14 +357,14 @@ export default function Home() {
                     to="/menu"
                     className="text-gray-400 hover:text-[#F3B404] transition"
                   >
-                    Salads
+                    {t.salads}
                   </Link>
                 </li>
               </ul>
             </div>
             <div>
               <h3 className="text-lg font-bold text-[#F3B404] mb-4">
-                Follow Us
+                {t.followUs}
               </h3>
               <div className="flex gap-3">
                 <a
@@ -284,7 +395,7 @@ export default function Home() {
             </div>
           </div>
           <div className="border-t border-white border-opacity-10 pt-8 text-center text-gray-500 text-sm">
-            <p>&copy; 2025 Haminan Marmaris. All rights reserved.</p>
+            <p>{t.copyright}</p>
           </div>
         </div>
       </footer>
